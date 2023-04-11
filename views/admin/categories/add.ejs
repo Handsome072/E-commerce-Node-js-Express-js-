@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3">
+            <%- include('../navigation.ejs') -%>
+        </div>
+        <div class="col-lg-9 mt-3">
+            <% if(error != ''){ %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if(success != ''){ %>
+                <div class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+           <form action="" method="POST">
+                <div class="d-flex">
+                    <input type="text" required autocomplete="off" autofocus name="name" class="form-control">
+                    <button class="btn btn-primary ms-2">save</button>
+                </div>
+           </form>
+           <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let category of categories) { %>
+                        <tr>
+                            <td><%= category.name %></td>
+                            <td>
+                                <a href="/admin/categories/delete/<%= category.category_id %>" class="btn btn-danger">delete</a>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+           </table>
+        </div>
+    </div>
+</div>

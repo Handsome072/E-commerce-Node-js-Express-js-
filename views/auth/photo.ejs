@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+            <form action="/profil/update" method="POST" enctype="multipart/form-data"> 
+                <div class="mt-3">
+                    <input type="file" name="image" accept="image/*" required  class="form-control" />
+                    <input type="hidden" name="route" value="/profil">
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary form-control">Save</button>
+                </div>
+                <div class="mt-3">
+                    <a href="/profil" class="btn btn-primary form-control">Ignore</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

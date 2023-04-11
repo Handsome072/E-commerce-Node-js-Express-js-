@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Categories {
+  category_id Int        @id @default(autoincrement())
+  name        String     @unique @db.VarChar(255)
+  products    Products[]
+}
+
+model Products {
+  product_id   Int        @id @default(autoincrement())
+  name         String     @db.VarChar(255)
+  slugg        String     @db.VarChar(255) @unique
+  price        Int
+  content      String
+  quantity_max Int
+  category_id  Int
+  category     Categories @relation(references: [category_id], fields: [category_id])
+  likes        Likes[]
+  cart         Carts[]
+  order        Orders[]
+  images       Images[]
+}
+
+model Users {
+  user_id  Int      @id @default(autoincrement())
+  fullname String   @db.VarChar(255)
+  email    String   @unique @db.VarChar(255)
+  password String   @db.VarChar(255)
+  image    String?  @db.VarChar(255)
+  domicile String?  @db.VarChar(255)
+  phone    String?  @db.VarChar(255)
+  role     Json     @default("[\"user\"]")
+  likes    Likes[]
+  cart     Carts[]
+  order    Orders[]
+}
+
+model Likes {
+  likes_id   Int      @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  user       Users    @relation(references: [user_id], fields: [user_id])
+  product    Products @relation(references: [product_id], fields: [product_id])
+}
+
+model Carts {
+  cart_id    Int      @id @default(autoincrement())
+  product_id Int
+  user_id    Int
+  user       Users    @relation(references: [user_id], fields: [user_id])
+  products   Products @relation(references: [product_id], fields: [product_id])
+}
+
+model Orders {
+  order_id   Int      @id @default(autoincrement())
+  product_id Int
+  user_id    Int
+  quantity   Int
+  user       Users    @relation(references: [user_id], fields: [user_id])
+  products   Products @relation(references: [product_id], fields: [product_id])
+}
+
+model Images {
+  image_id   Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  product_id Int
+  product    Products @relation(references: [product_id], fields: [product_id])
+}

@@ -1,0 +1,32 @@
+<h1>Home Page</h1>
+<style>
+    .img-box {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover ;
+        height: 200px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <% for (let product of products) { %>
+            <div class="col-lg-3">
+                <div class="img-box" style="background-image: url(<%= product.images[0].name %>);"></div>
+                <h3><%= product.name %></h3>
+                <% if( user) { %>
+                    <% let info = product.likes.find((likeInfo) => likeInfo.user_id == user.user_id) %>
+                    <% if( info )  { %>
+                        <b class="float-start"><i class="fas fa-heart send-like" id="<%= info.likes_id %>"></i> <span><%= product.likes.length %></span></b>
+                    <% }else { %>
+                            <b class="float-start"><i class="far fa-heart send-like" id="<%= product.product_id %>"></i> <span><%= product.likes.length %></span></b>
+                    <% } %>
+                <%  } else { %>
+                    <b class="float-start"><i class="far fa-heart send-like" id="<%= product.product_id %>"></i> <span><%= product.likes.length %></span></b>
+                <% } %>
+
+                <p class="float-end">$<%= product.price %></p> <br>
+                <a href="/products/details/<%= product.slugg %>">details</a>
+            </div>
+        <% } %>
+    </div>
+</div>

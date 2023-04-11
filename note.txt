@@ -1,0 +1,54 @@
+e-commerce : my shoes
+
+- produit (CRUD) ---> categorie
+- j'aime
+- panier (ajout , supprimer) --> quantiter ()
+- commande : prix total
+- user: {
+    - authentification
+    - autorisation ([admin , profil] : admin , [profil] : user)
+    - (lieu , contact)
+}
+- recherche (filter)
+
+::UI=> bootstrap
+
+
+
+CATEGORY
+- category_id
+- name
+
+PRODUCT
+- product_id
+- name
+- price
+- content
+- category_id @relation manyToOne CATEGORY
+- quantity_max 
+
+USER
+- user_id
+- fullname
+- email
+- password
+- image?
+- domicile
+- phone
+
+LIKE
+- like_id    
+- user_id
+- product_id
+
+PANIER
+- panier_Id
+- product_id
+- user_id
+
+ORDER
+- order_id
+- product_id
+- user_id
+- quantity
+

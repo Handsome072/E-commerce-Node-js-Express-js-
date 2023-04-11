@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <a href="/" class="btn btn-primary"> <i class="fas fa-arrow-left"></i>  Home</a>
+        </div>
+        <div class="col-lg-8">
+            <div class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <% for(let imageIndex in product.images) { %>
+                        <div class="carousel-item <%= imageIndex == 0  ? 'active' : '' %> ">
+                            <img src="<%= product.images[imageIndex].name %>" alt="kdjbfsd" class="w-100 d-block">
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h4><%= product.name %></h4>
+            <p>$<%= product.price %></p>
+            <% if( user) { %>
+                <% let info = product.likes.find((likeInfo) => likeInfo.user_id == user.user_id) %>
+                <% if( info )  { %>
+                    <b class="float-start"><i class="fas fa-heart send-like" id="<%= info.likes_id %>"></i> <span><%= product.likes.length %></span></b>
+                <% }else { %>
+                        <b class="float-start"><i class="far fa-heart send-like" id="<%= product.product_id %>"></i> <span><%= product.likes.length %></span></b>
+                <% } %>
+            <%  } else { %>
+                <b class="float-start"><i class="far fa-heart send-like" id="<%= product.product_id %>"></i> <span><%= product.likes.length %></span></b>
+            <% } %>
+            <br><br>
+            <a href="/produts/add/cart/<%= product.product_id%>" class="btn btn-primary mb-3 form-control">Add To Cart</a>
+            <p><%= product.content %></p>
+            
+        </div>
+    </div>
+</div>
